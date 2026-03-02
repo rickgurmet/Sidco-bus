@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Bricolage Grotesque (display) ── */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Outfit (body) ── */
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* ── Core palette: Deep Navy + Amber Transit ── */
+    --background: 0.13 0.015 255;
+    --foreground: 0.97 0.005 255;
+
+    --card: 0.17 0.018 255;
+    --card-foreground: 0.97 0.005 255;
+
+    --popover: 0.2 0.02 255;
+    --popover-foreground: 0.97 0.005 255;
+
+    /* Amber / transit orange */
+    --primary: 0.78 0.17 65;
+    --primary-foreground: 0.1 0.01 255;
+
+    --secondary: 0.22 0.025 255;
+    --secondary-foreground: 0.85 0.01 255;
+
+    --muted: 0.2 0.02 255;
+    --muted-foreground: 0.6 0.03 255;
+
+    --accent: 0.78 0.17 65;
+    --accent-foreground: 0.1 0.01 255;
+
+    --destructive: 0.62 0.22 25;
+    --destructive-foreground: 0.97 0 0;
+
+    --border: 0.28 0.025 255;
+    --input: 0.22 0.025 255;
+    --ring: 0.78 0.17 65;
+
+    --chart-1: 0.78 0.17 65;
+    --chart-2: 0.65 0.18 200;
+    --chart-3: 0.55 0.15 150;
+    --chart-4: 0.7 0.16 300;
+    --chart-5: 0.72 0.19 30;
+
+    --sidebar: 0.15 0.018 255;
+    --sidebar-foreground: 0.97 0.005 255;
+    --sidebar-primary: 0.78 0.17 65;
+    --sidebar-primary-foreground: 0.1 0.01 255;
+    --sidebar-accent: 0.22 0.025 255;
+    --sidebar-accent-foreground: 0.85 0.01 255;
+    --sidebar-border: 0.28 0.025 255;
+    --sidebar-ring: 0.78 0.17 65;
+
+    /* Custom brand tokens */
+    --amber: 0.78 0.17 65;
+    --amber-light: 0.88 0.15 70;
+    --navy-deep: 0.1 0.015 255;
+    --navy-mid: 0.17 0.018 255;
+    --navy-surface: 0.22 0.025 255;
+    --star-fill: 0.82 0.18 60;
+    --star-empty: 0.32 0.025 255;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Outfit", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* ── Motion base ── */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: oklch(var(--card));
+}
+::-webkit-scrollbar-thumb {
+  background: oklch(var(--border));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(var(--muted-foreground));
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid oklch(var(--ring));
+  outline-offset: 2px;
+}
+
+/* ── Noise texture overlay ── */
+.noise-bg {
+  position: relative;
+}
+.noise-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+/* ── Transit stripe decoration ── */
+.transit-stripe {
+  background: repeating-linear-gradient(
+    -45deg,
+    oklch(var(--amber) / 0.08) 0px,
+    oklch(var(--amber) / 0.08) 8px,
+    transparent 8px,
+    transparent 24px
+  );
+}
